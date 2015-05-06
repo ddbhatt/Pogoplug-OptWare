@@ -1,0 +1,21 @@
+#!/bin/sh
+
+OPT_DIR=/opt
+OPT_BASE_DIR=$(dirname ${OPT_DIR})
+
+IPKG_SRC=http://ipkg.nslu2-linux.org/feeds/optware/cs08q1armel/
+
+IPKG_SRC_CROSS_STABLE=${IPKG_SRC}cross/stable/
+IPKG_SRC_CROSS_UNSTABLE=${IPKG_SRC}cross/unstable/
+IPKG_SRC_NATIVE_UNSTABLE=${IPKG_SRC}native/unstable/
+
+WGET_IPK=wget_1.12-2_arm.ipk
+
+if [ ! -d ${OPT_DIR} ]; then
+	mkdir -p ${OPT_DIR}
+fi
+cd ${OPT_DIR}
+
+wget ${IPKG_SRC_CROSS_STABLE}${WGET_IPK}
+tar -xOvzf wget_*_arm.ipk ./data.tar.gz | tar -C ${OPT_BASE_DIR} -xzvf -
+rm ${WGET_IPK}

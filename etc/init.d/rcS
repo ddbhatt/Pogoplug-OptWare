@@ -1,0 +1,7 @@
+
+***** PARTIAL rcS ******
+# Add line at top of rcS
+mount -o ro,remount /
+
+# Add line at end of rcS
+nohup /root/optware.sh > /dev/null 2>&1 &

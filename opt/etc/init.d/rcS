@@ -1,0 +1,24 @@
+#!/bin/sh
+# mount -o ro,remount /
+
+# Log DateTime of this rcS run
+# echo OptWare init.d/rcS Run on $(date) >> /opt/log.txt
+
+# Wait 5 Seconds
+sleep 5
+
+# Mount Swap file if it exists
+if [ -f /tmp/.cemnt/mnt_sda1/swapfile.img ];then
+    # To Make swapfile.img
+    # 1) /opt/bin/ipkg install e2fslibs
+    # 2) dd if=/dev/zero of=/tmp/.cemnt/mnt_sda1/swapfile.img bs=1M count=512 #for a 1GB swapfile, use count=1024
+    # /opt/sbin/mkswap /tmp/.cemnt/mnt_sda1/swapfile.img
+
+    /opt/sbin/swapon /tmp/.cemnt/mnt_sda1/swapfile.img
+fi
+
+# Starting Services manually (since I don't need all services all the time)
+# ==========================
+# /opt/etc/init.d/S80samba start
+# /opt/bin/transmission-daemon --config-dir /opt/etc/transmission
+# /opt/etc/init.d/S20dbus start 

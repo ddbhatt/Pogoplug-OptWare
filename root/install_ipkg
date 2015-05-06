@@ -1,0 +1,25 @@
+#!/bin/sh
+
+OPT_DIR=/opt
+OPT_BASE_DIR=$(dirname ${OPT_DIR})
+
+IPKG_SRC=http://ipkg.nslu2-linux.org/feeds/optware/cs08q1armel/
+
+IPKG_SRC_CROSS_STABLE=${IPKG_SRC}cross/stable/
+IPKG_SRC_CROSS_UNSTABLE=${IPKG_SRC}cross/unstable/
+IPKG_SRC_NATIVE_UNSTABLE=${IPKG_SRC}native/unstable/
+
+IPKG_IPK=ipkg-opt_0.99.163-10_arm.ipk
+
+if [ ! -d ${OPT_DIR} ]; then
+	mkdir -p ${OPT_DIR}
+fi
+cd ${OPT_DIR}
+
+wget ${IPKG_SRC_CROSS_STABLE}${IPKG_IPK}
+tar -xOvzf ipkg-opt_*_arm.ipk ./data.tar.gz | tar -C ${OPT_BASE_DIR} -xzvf -
+rm ${IPKG_IPK}
+
+echo "src armel-cross-stable ${IPKG_SRC_CROSS_STABLE}" >> ${OPT_BASE_DIR}/opt/etc/ipkg.conf
+echo "src armel-cross-unstable ${IPKG_SRC_CROSS_UNSTABLE}" >> ${OPT_BASE_DIR}/opt/etc/ipkg.conf
+echo "src armel-native-unstable ${IPKG_SRC_NATIVE_UNSTABLE}" >> ${OPT_BASE_DIR}/opt/etc/ipkg.conf

@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+export PATH=/opt/bin:/opt/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/opt/share/pear
